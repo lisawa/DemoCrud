@@ -1,8 +1,6 @@
-﻿using DemoCrud.Models;
-using System;
+﻿using System.Linq;
+using DemoCrud.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DemoCrud
 {
@@ -18,7 +16,7 @@ namespace DemoCrud
 
         public List<UserDataModel> GetAllData()
         {
-            var repoList = repo.GetAllData();
+            var repoList = repo.GetAllData().OrderBy(x => x.createDate).ToList();
 
             var result = new List<UserDataModel>();
 
@@ -44,6 +42,11 @@ namespace DemoCrud
             return result;
         }
 
+        public UserDataModel GetDataByPK(string pk)
+        {
+            return transModel(repo.GetDataByPk(pk));
+        }
+
         public void CreateUserData(UserDataModel data)
         {
             repo.CreateUserData(data);
@@ -54,9 +57,9 @@ namespace DemoCrud
             repo.UpdateUserData(data);
         }
 
-        public void DeleteUserData(UserDataModel data)
+        public void DeleteUserData(string pk)
         {
-            repo.DeleteUserData(data);
+            repo.DeleteUserData(pk);
         }
 
         private UserDataModel transModel(userdata data)

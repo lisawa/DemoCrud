@@ -18,5 +18,6 @@ namespace DemoCrud
         public string name { get; set; }
         public Nullable<int> age { get; set; }
         public string city { get; set; }
+        public Nullable<System.DateTime> createDate { get; set; }
     }
 }

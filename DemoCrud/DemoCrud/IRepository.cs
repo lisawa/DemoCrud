@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Demo
+namespace DemoCrud
 {
     public interface IRepository<T>
     {

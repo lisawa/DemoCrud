@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoCrud.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,23 +30,34 @@ namespace DemoCrud
             return repo.Reads().Where(x => x.name.IndexOf(name) >= 0).ToList();
         }
 
-        public void CreateUserData(userdata data)
+        public void CreateUserData(UserDataModel data)
         {
             data.pk = Guid.NewGuid();
-            repo.Create(data);
+            repo.Create(transModel(data));
             repo.SaveChanges();
         }
 
-        public void UpdateUserData(userdata data)
+        public void UpdateUserData(UserDataModel data)
         {
-            repo.Update(data);
+            repo.Update(transModel(data));
             repo.SaveChanges();
         }
 
-        public void DeleteUserData(userdata data)
+        public void DeleteUserData(UserDataModel data)
         {
-            repo.Delete(data);
+            repo.Delete(transModel(data));
             repo.SaveChanges();
+        }
+
+        private userdata transModel(UserDataModel data)
+        {
+            return new userdata()
+            {
+                pk = data.pk,
+                name = data.name,
+                age = data.age,
+                city = data.city
+            };
         }
 
     }

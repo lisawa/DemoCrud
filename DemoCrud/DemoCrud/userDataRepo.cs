@@ -30,23 +30,45 @@ namespace DemoCrud
             return repo.Reads().Where(x => x.name.IndexOf(name) >= 0).ToList();
         }
 
+        public userdata GetDataByPk(string pk)
+        {
+            var data = repo.Reads();
+
+            var id = new Guid(pk);
+
+            return repo.Reads().Where(x => x.pk.ToString() == pk).FirstOrDefault();
+        }
+
         public void CreateUserData(UserDataModel data)
         {
             data.pk = Guid.NewGuid();
-            repo.Create(transModel(data));
+            var dbData = transModel(data);
+            dbData.createDate = DateTime.Now;
+            repo.Create(dbData);
             repo.SaveChanges();
         }
 
         public void UpdateUserData(UserDataModel data)
         {
-            repo.Update(transModel(data));
+            var dbData = GetDataByPk(data.pk.ToString());
+
+            dbData.name = data.name;
+            dbData.age = data.age;
+            dbData.city = data.city;
+
+            repo.Update(dbData);
             repo.SaveChanges();
         }
 
-        public void DeleteUserData(UserDataModel data)
+        public void DeleteUserData(string pk)
         {
-            repo.Delete(transModel(data));
-            repo.SaveChanges();
+            var data = GetDataByPk(pk);
+
+            if (data != null)
+            {
+                repo.Delete(data);
+                repo.SaveChanges();
+            }
         }
 
         private userdata transModel(UserDataModel data)

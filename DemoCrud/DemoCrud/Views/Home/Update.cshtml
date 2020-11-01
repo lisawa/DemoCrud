@@ -1,0 +1,46 @@
+﻿@model DemoCrud.Models.UserDataModel
+@{
+    ViewBag.Title = "Update";
+    var m = Model;
+}
+
+<h2>Insert</h2>
+
+<div>
+    <div class="column topbox">Name</div>
+    <input type="text" id="nameInput" />
+</div>
+<div>
+    <div class="column topbox">Age</div>
+    <input type="number" id="ageInput" />
+</div>
+<div>
+    <div class="column topbox">City</div>
+    <input type="text" id="cityInput" />
+</div>
+<input id="insertData" type="button" value="Update User">
+<script>
+    window.onload = function () {
+        
+        $('#nameInput').val('@Model.name');
+        $('#ageInput').val(@Model.age);
+        $('#cityInput').val('@Model.city');
+        
+        $('#insertData').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'update',
+                data: {
+                    pk : '@Model.pk',
+                    name: $('#nameInput').val(),
+                    age: $('#ageInput').val(),
+                    city: $('#cityInput').val()
+                },
+                success: function (data) {
+                    location.href = '/';
+                },
+            });
+        });
+    }
+
+</script>

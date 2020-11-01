@@ -22,3 +22,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.column{
+    display: inline-block;
+}
+
+.topbox {
+    width:100px;
+}
+.topname {
+    width:300px;
+}
+.topage {
+    width:100px;
+}
+.topcity{
+    width:200px;
+}

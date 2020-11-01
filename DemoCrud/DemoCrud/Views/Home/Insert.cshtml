@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>Insert</h2>
+
+<div>
+    <div class="column topbox">Name</div>
+    <input type="text" id="nameInput" />
+</div>
+<div>
+    <div class="column topbox">Age</div>
+    <input type="number" id="ageInput" />
+</div>
+<div>
+    <div class="column topbox">City</div>
+    <input type="text" id="cityInput" />
+</div>
+<input id="insertData" type="button" value="Insert User">
+<script>
+    window.onload = function() {
+        $('#insertData').click(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'insert',
+                data: {
+                    name: $('#nameInput').val(),
+                    age: $('#ageInput').val(),
+                    city: $('#cityInput').val()
+                },
+                success: function (data) {
+                    location.href = '/';
+                },
+            });
+        });
+    }
+
+</script>
